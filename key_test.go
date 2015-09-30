@@ -1,7 +1,7 @@
 package crypto_test
 
 import (
-	. "github.com/ipfs/go-ipfs/p2p/crypto"
+	. "github.com/ipfs/go-libp2p/p2p/crypto"
 
 	"bytes"
 	tu "github.com/ipfs/go-ipfs/util/testutil"

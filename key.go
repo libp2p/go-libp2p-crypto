@@ -21,9 +21,9 @@ import (
 
 	proto "github.com/ipfs/go-ipfs/Godeps/_workspace/src/github.com/gogo/protobuf/proto"
 
-	pb "github.com/ipfs/go-ipfs/p2p/crypto/pb"
 	u "github.com/ipfs/go-ipfs/util"
 	logging "github.com/ipfs/go-ipfs/vendor/go-log-v1.0.0"
+	pb "github.com/ipfs/go-libp2p/p2p/crypto/pb"
 )
 
 var log = logging.Logger("crypto")
