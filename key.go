@@ -19,11 +19,12 @@ import (
 	"crypto/sha512"
 	"hash"
 
-	proto "github.com/ipfs/go-ipfs/Godeps/_workspace/src/github.com/gogo/protobuf/proto"
-
-	u "github.com/ipfs/go-ipfs/util"
-	logging "github.com/ipfs/go-ipfs/vendor/go-log-v1.0.0"
 	pb "github.com/ipfs/go-libp2p/p2p/crypto/pb"
+
+	proto "github.com/gogo/protobuf/proto"
+
+	logging "QmWRypnfEwrgH4k93KEHN5hng7VjKYkWmzDYRuTZeh2Mgh/go-log"
+	u "util"
 )
 
 var log = logging.Logger("crypto")

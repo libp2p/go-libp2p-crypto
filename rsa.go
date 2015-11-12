@@ -8,7 +8,7 @@ import (
 	"crypto/x509"
 	"errors"
 
-	proto "github.com/ipfs/go-ipfs/Godeps/_workspace/src/github.com/gogo/protobuf/proto"
+	proto "github.com/gogo/protobuf/proto"
 
 	pb "github.com/ipfs/go-libp2p/p2p/crypto/pb"
 )
