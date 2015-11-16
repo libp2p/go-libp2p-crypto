@@ -4,7 +4,7 @@ import (
 	. "github.com/ipfs/go-libp2p/p2p/crypto"
 
 	"bytes"
-	tu "util/testutil"
+	tu "github.com/ipfs/go-libp2p/testutil"
 	"testing"
 )
 
