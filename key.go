@@ -21,10 +21,10 @@ import (
 
 	pb "github.com/ipfs/go-libp2p/p2p/crypto/pb"
 
-	proto "gx/QmchriuyWMcqHha3dG86rQyxoswSUpmLUBjuJ2kotB65qR/gogo-protobuf/proto"
+	proto "github.com/gogo/protobuf/proto"
 
-	u "gx/QmQA79FfVsUnGkH3TgKDqcDkupfjqLSJ6EYwDuDDZK8nhD/go-ipfs-util"
-	logging "gx/QmfZZB1aVXWA4kaR5R4e9NifERT366TTCSagkfhmAbYLsu/go-log"
+	u "github.com/ipfs/go-ipfs-util"
+	logging "github.com/ipfs/go-log"
 )
 
 var log = logging.Logger("crypto")
