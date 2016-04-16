@@ -1,7 +1,7 @@
 {
   "name": "go-libp2p-crypto",
   "author": "whyrusleeping",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "gxDependencies": [
     {
       "author": "whyrusleeping",
