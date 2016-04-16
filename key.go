@@ -19,7 +19,7 @@ import (
 	"crypto/sha512"
 	"hash"
 
-	pb "github.com/ipfs/go-libp2p/p2p/crypto/pb"
+	pb "github.com/ipfs/go-libp2p-crypto/pb"
 
 	proto "github.com/gogo/protobuf/proto"
 	u "github.com/ipfs/go-ipfs-util"

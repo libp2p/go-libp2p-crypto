@@ -9,7 +9,7 @@ import (
 	"errors"
 
 	proto "github.com/gogo/protobuf/proto"
-	pb "github.com/ipfs/go-libp2p/p2p/crypto/pb"
+	pb "github.com/ipfs/go-libp2p-crypto/pb"
 )
 
 type RsaPrivateKey struct {
