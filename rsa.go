@@ -8,8 +8,8 @@ import (
 	"crypto/x509"
 	"errors"
 
+	proto "github.com/gogo/protobuf/proto"
 	pb "github.com/ipfs/go-libp2p/p2p/crypto/pb"
-	proto "gx/ipfs/QmZ4Qi3GaRbjcx28Sme5eMH7RQjGkt8wHxt2a65oLaeFEV/gogo-protobuf/proto"
 )
 
 type RsaPrivateKey struct {
