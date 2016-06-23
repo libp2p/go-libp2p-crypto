@@ -36,5 +36,5 @@
   "language": "go",
   "license": "MIT",
   "name": "go-libp2p-crypto",
-  "version": "1.0.2"
+  "version": "1.0.3"
 }
