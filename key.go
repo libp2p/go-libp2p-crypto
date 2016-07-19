@@ -29,6 +29,7 @@ var ErrBadKeyType = errors.New("invalid or unsupported key type")
 
 const (
 	RSA = iota
+	Ed25519
 )
 
 // Key represents a crypto key that can be compared to another key
@@ -56,8 +57,6 @@ type PrivKey interface {
 
 	// Generate a secret string of bytes
 	GenSecret() []byte
-
-	Decrypt(b []byte) ([]byte, error)
 }
 
 type PubKey interface {
@@ -65,9 +64,6 @@ type PubKey interface {
 
 	// Verify that 'sig' is the signed hash of 'data'
 	Verify(data []byte, sig []byte) (bool, error)
-
-	// Encrypt data in a way that can be decrypted by a paired private key
-	Encrypt(data []byte) ([]byte, error)
 }
 
 // Given a public key, generates the shared key.
@@ -87,6 +83,8 @@ func GenerateKeyPairWithReader(typ, bits int, src io.Reader) (PrivKey, PubKey, e
 		}
 		pk := &priv.PublicKey
 		return &RsaPrivateKey{sk: priv}, &RsaPublicKey{pk}, nil
+	case Ed25519:
+		return GenerateEd25519Key(src)
 	default:
 		return nil, nil, ErrBadKeyType
 	}
@@ -235,6 +233,10 @@ func UnmarshalPublicKey(data []byte) (PubKey, error) {
 	switch pmes.GetType() {
 	case pb.KeyType_RSA:
 		return UnmarshalRsaPublicKey(pmes.GetData())
+	case pb.KeyType_Ed25519:
+		var pubk [32]byte
+		copy(pubk[:], pmes.Data)
+		return &Ed25519PublicKey{&pubk}, nil
 	default:
 		return nil, ErrBadKeyType
 	}
@@ -243,15 +245,7 @@ func UnmarshalPublicKey(data []byte) (PubKey, error) {
 // MarshalPublicKey converts a public key object into a protobuf serialized
 // public key
 func MarshalPublicKey(k PubKey) ([]byte, error) {
-	b, err := MarshalRsaPublicKey(k.(*RsaPublicKey))
-	if err != nil {
-		return nil, err
-	}
-	pmes := new(pb.PublicKey)
-	typ := pb.KeyType_RSA // for now only type.
-	pmes.Type = &typ
-	pmes.Data = b
-	return proto.Marshal(pmes)
+	return k.Bytes()
 }
 
 // UnmarshalPrivateKey converts a protobuf serialized private key into its
@@ -266,6 +260,8 @@ func UnmarshalPrivateKey(data []byte) (PrivKey, error) {
 	switch pmes.GetType() {
 	case pb.KeyType_RSA:
 		return UnmarshalRsaPrivateKey(pmes.GetData())
+	case pb.KeyType_Ed25519:
+		return UnmarshalEd25519PrivateKey(pmes.GetData())
 	default:
 		return nil, ErrBadKeyType
 	}
