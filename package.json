@@ -24,12 +24,6 @@
       "hash": "QmZNVWh8LLjAavuQ2JXuFmuYH3C11xo988vSgp7UQrTRj1",
       "name": "go-ipfs-util",
       "version": "1.0.0"
-    },
-    {
-      "author": "whyrusleeping",
-      "hash": "QmRQhVisS8dmPbjBUthVkenn81pBxrx1GxE281csJhm2vL",
-      "name": "go-msgio",
-      "version": "0.0.0"
     }
   ],
   "gxVersion": "0.4.0",
