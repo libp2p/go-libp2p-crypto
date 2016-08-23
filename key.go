@@ -23,10 +23,7 @@ import (
 
 	proto "github.com/gogo/protobuf/proto"
 	u "github.com/ipfs/go-ipfs-util"
-	logging "github.com/ipfs/go-log"
 )
-
-var log = logging.Logger("crypto")
 
 var ErrBadKeyType = errors.New("invalid or unsupported key type")
 
@@ -117,7 +114,6 @@ func GenerateEKeyPair(curveName string) ([]byte, GenSharedKey, error) {
 	}
 
 	pubKey := elliptic.Marshal(curve, x, y)
-	// log.Debug("GenerateEKeyPair %d", len(pubKey))
 
 	done := func(theirPub []byte) ([]byte, error) {
 		// Verify and unpack node's public key.

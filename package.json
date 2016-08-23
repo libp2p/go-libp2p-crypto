@@ -15,12 +15,6 @@
     },
     {
       "author": "whyrusleeping",
-      "hash": "QmNQynaz7qfriSUJkiEZUrm2Wen1u3Kj9goZzWtrPyu7XR",
-      "name": "go-log",
-      "version": "1.1.2"
-    },
-    {
-      "author": "whyrusleeping",
       "hash": "QmZNVWh8LLjAavuQ2JXuFmuYH3C11xo988vSgp7UQrTRj1",
       "name": "go-ipfs-util",
       "version": "1.0.0"
@@ -30,5 +24,5 @@
   "language": "go",
   "license": "MIT",
   "name": "go-libp2p-crypto",
-  "version": "1.0.3"
+  "version": "1.0.4"
 }
