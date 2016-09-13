@@ -8,7 +8,7 @@ import (
 
 	"github.com/agl/ed25519"
 	proto "github.com/gogo/protobuf/proto"
-	pb "github.com/ipfs/go-libp2p-crypto/pb"
+	pb "github.com/libp2p/go-libp2p-crypto/pb"
 )
 
 type Ed25519PrivateKey struct {
