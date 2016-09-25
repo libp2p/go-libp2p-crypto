@@ -1,8 +1,8 @@
 package crypto_test
 
 import (
-	. "github.com/ipfs/go-libp2p-crypto"
-	tu "github.com/ipfs/go-libp2p-crypto/test"
+	. "github.com/libp2p/go-libp2p-crypto"
+	tu "github.com/libp2p/go-libp2p-crypto/test"
 
 	"bytes"
 	"testing"

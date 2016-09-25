@@ -2,7 +2,7 @@ package testutil
 
 import (
 	u "github.com/ipfs/go-ipfs-util"
-	ci "github.com/ipfs/go-libp2p-crypto"
+	ci "github.com/libp2p/go-libp2p-crypto"
 )
 
 func RandTestKeyPair(bits int) (ci.PrivKey, ci.PubKey, error) {

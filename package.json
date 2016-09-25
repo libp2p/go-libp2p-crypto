@@ -18,6 +18,12 @@
       "hash": "QmZNVWh8LLjAavuQ2JXuFmuYH3C11xo988vSgp7UQrTRj1",
       "name": "go-ipfs-util",
       "version": "1.0.0"
+    },
+    {
+      "author": "whyrusleeping",
+      "hash": "QmQ51pHe6u7CWodkUGDLqaCEMchkbMt7VEZnECF5mp6tVb",
+      "name": "ed25519",
+      "version": "0.0.0"
     }
   ],
   "gxVersion": "0.4.0",
