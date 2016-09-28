@@ -54,9 +54,6 @@ type PrivKey interface {
 
 	// Return a public key paired with this private key
 	GetPublic() PubKey
-
-	// Generate a secret string of bytes
-	GenSecret() []byte
 }
 
 type PubKey interface {

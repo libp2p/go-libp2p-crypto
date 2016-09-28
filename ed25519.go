@@ -2,7 +2,6 @@ package crypto
 
 import (
 	"bytes"
-	"crypto/rand"
 	"fmt"
 	"io"
 
@@ -55,12 +54,6 @@ func (k *Ed25519PrivateKey) Equals(o Key) bool {
 	}
 
 	return bytes.Equal((*k.sk)[:], (*edk.sk)[:]) && bytes.Equal((*k.pk)[:], (*edk.pk)[:])
-}
-
-func (k *Ed25519PrivateKey) GenSecret() []byte {
-	buf := make([]byte, 16)
-	rand.Read(buf)
-	return buf
 }
 
 func (k *Ed25519PrivateKey) GetPublic() PubKey {

@@ -5,6 +5,7 @@ import (
 	tu "github.com/libp2p/go-libp2p-crypto/test"
 
 	"bytes"
+	"crypto/rand"
 	"testing"
 )
 
@@ -22,7 +23,9 @@ func TestRsaKeys(t *testing.T) {
 func testKeySignature(t *testing.T, sk PrivKey) {
 	pk := sk.GetPublic()
 
-	text := sk.GenSecret()
+	text := make([]byte, 16)
+	rand.Read(text)
+
 	sig, err := sk.Sign(text)
 	if err != nil {
 		t.Fatal(err)
