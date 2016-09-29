@@ -1,10 +1,10 @@
 {
   "author": "whyrusleeping",
   "bugs": {
-    "url": "https://github.com/ipfs/go-libp2p-transport"
+    "url": "https://github.com/libp2p/go-libp2p-transport"
   },
   "gx": {
-    "dvcsimport": "github.com/ipfs/go-libp2p-crypto"
+    "dvcsimport": "github.com/libp2p/go-libp2p-crypto"
   },
   "gxDependencies": [
     {
