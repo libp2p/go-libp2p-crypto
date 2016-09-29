@@ -56,12 +56,6 @@ func (pk *RsaPublicKey) Hash() ([]byte, error) {
 	return KeyHash(pk)
 }
 
-func (sk *RsaPrivateKey) GenSecret() []byte {
-	buf := make([]byte, 16)
-	rand.Read(buf)
-	return buf
-}
-
 func (sk *RsaPrivateKey) Sign(message []byte) ([]byte, error) {
 	hashed := sha256.Sum256(message)
 	return rsa.SignPKCS1v15(rand.Reader, sk.sk, crypto.SHA256, hashed[:])
