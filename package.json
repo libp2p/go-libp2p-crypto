@@ -15,9 +15,9 @@
     },
     {
       "author": "whyrusleeping",
-      "hash": "QmZNVWh8LLjAavuQ2JXuFmuYH3C11xo988vSgp7UQrTRj1",
+      "hash": "Qmb912gdngC1UWwTkhuW8knyRbcWeu5kqkxBpveLmW8bSr",
       "name": "go-ipfs-util",
-      "version": "1.0.0"
+      "version": "1.2.0"
     },
     {
       "author": "whyrusleeping",
@@ -31,6 +31,6 @@
   "license": "MIT",
   "name": "go-libp2p-crypto",
   "releaseCmd": "git commit -a -m \"gx publish $VERSION\"",
-  "version": "1.3.0"
+  "version": "1.3.1"
 }
 
