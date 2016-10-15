@@ -6,7 +6,7 @@
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![GoDoc](https://godoc.org/github.com/libp2p/go-libp2p-crypto?status.svg)](https://godoc.org/github.com/ipfs/go-libp2p-crypto)
 [![Coverage Status](https://coveralls.io/repos/github/ipfs/go-libp2p-crypto/badge.svg?branch=master)](https://coveralls.io/github/ipfs/go-libp2p-crypto?branch=master)
-[![Build Status](https://travis-ci.org/ipfs/go-libp2p-crypto.svg?branch=master)](https://travis-ci.org/ipfs/go-libp2p-crypto)
+[![Build Status](https://travis-ci.org/libp2p/go-libp2p-crypto.svg?branch=master)](https://travis-ci.org/libp2p/go-libp2p-crypto)
 
 > Various cryptographic utilities used by ipfs
 
