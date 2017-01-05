@@ -15,12 +15,6 @@
     },
     {
       "author": "whyrusleeping",
-      "hash": "Qmb912gdngC1UWwTkhuW8knyRbcWeu5kqkxBpveLmW8bSr",
-      "name": "go-ipfs-util",
-      "version": "1.2.0"
-    },
-    {
-      "author": "whyrusleeping",
       "hash": "QmQ51pHe6u7CWodkUGDLqaCEMchkbMt7VEZnECF5mp6tVb",
       "name": "ed25519",
       "version": "0.0.0"
