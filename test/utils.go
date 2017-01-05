@@ -1,14 +1,18 @@
 package testutil
 
 import (
-	u "github.com/ipfs/go-ipfs-util"
+	"math/rand"
+	"time"
+
 	ci "github.com/libp2p/go-libp2p-crypto"
 )
 
 func RandTestKeyPair(bits int) (ci.PrivKey, ci.PubKey, error) {
-	return ci.GenerateKeyPairWithReader(ci.RSA, bits, u.NewTimeSeededRand())
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	return ci.GenerateKeyPairWithReader(ci.RSA, bits, r)
 }
 
 func SeededTestKeyPair(seed int64) (ci.PrivKey, ci.PubKey, error) {
-	return ci.GenerateKeyPairWithReader(ci.RSA, 512, u.NewSeededRand(seed))
+	r := rand.New(rand.NewSource(seed))
+	return ci.GenerateKeyPairWithReader(ci.RSA, 512, r)
 }

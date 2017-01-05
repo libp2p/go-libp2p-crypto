@@ -20,9 +20,9 @@ import (
 	"hash"
 
 	pb "github.com/libp2p/go-libp2p-crypto/pb"
+	mh "github.com/multiformats/go-multihash"
 
 	proto "github.com/gogo/protobuf/proto"
-	u "github.com/ipfs/go-ipfs-util"
 )
 
 var ErrBadKeyType = errors.New("invalid or unsupported key type")
@@ -301,5 +301,7 @@ func KeyHash(k Key) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return u.Hash(kb), nil
+
+	h, _ := mh.Sum(kb, mh.SHA2_256, -1)
+	return []byte(h), nil
 }
