@@ -42,7 +42,7 @@ func UnmarshalSecp256k1PublicKey(data []byte) (*Secp256k1PublicKey, error) {
 }
 
 func (k *Secp256k1PrivateKey) Bytes() ([]byte, error) {
-	pbmes := new(pb.PublicKey)
+	pbmes := new(pb.PrivateKey)
 	typ := pb.KeyType_Secp256k1
 	pbmes.Type = &typ
 	pbmes.Data = (*btcec.PrivateKey)(k).Serialize()
