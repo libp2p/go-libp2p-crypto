@@ -24,6 +24,12 @@
       "hash": "Qmct7apXgRK66hqvdokDLtPuZWp2zWPtQ4P2gJjdbtsSS3",
       "name": "btcec",
       "version": "0.0.0"
+    },
+    {
+      "author": "multiformats",
+      "hash": "QmbZ6Cee2uHjG7hf19qLHppgKDRtaG4CVtMzdmK9VCVqLu",
+      "name": "go-multihash",
+      "version": "1.0.2"
     }
   ],
   "gxVersion": "0.4.0",
@@ -31,6 +37,6 @@
   "license": "MIT",
   "name": "go-libp2p-crypto",
   "releaseCmd": "git commit -a -m \"gx publish $VERSION\"",
-  "version": "1.3.2"
+  "version": "1.3.4"
 }
 
