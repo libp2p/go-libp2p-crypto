@@ -18,6 +18,12 @@
       "hash": "QmQ51pHe6u7CWodkUGDLqaCEMchkbMt7VEZnECF5mp6tVb",
       "name": "ed25519",
       "version": "0.0.0"
+    },
+    {
+      "author": "btcsuite",
+      "hash": "Qmct7apXgRK66hqvdokDLtPuZWp2zWPtQ4P2gJjdbtsSS3",
+      "name": "btcec",
+      "version": "0.0.0"
     }
   ],
   "gxVersion": "0.4.0",
