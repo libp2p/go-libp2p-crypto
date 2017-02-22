@@ -75,6 +75,16 @@ func TestMarshalLoop(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	privB, err = MarshalPrivateKey(priv)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	privNew, err = UnmarshalPrivateKey(privB)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	if !priv.Equals(privNew) || !privNew.Equals(priv) {
 		t.Fatal("keys are not equal")
 	}
