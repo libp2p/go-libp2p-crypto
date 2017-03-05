@@ -20,6 +20,12 @@
       "version": "0.0.0"
     },
     {
+      "author": "btcsuite",
+      "hash": "QmWq5PJgAQKDWQerAijYUVKW8mN5MDatK5j7VMp8rizKQd",
+      "name": "btcec",
+      "version": "0.0.1"
+    },
+    {
       "author": "multiformats",
       "hash": "QmbZ6Cee2uHjG7hf19qLHppgKDRtaG4CVtMzdmK9VCVqLu",
       "name": "go-multihash",
