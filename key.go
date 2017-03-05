@@ -266,12 +266,15 @@ func UnmarshalPrivateKey(data []byte) (PrivKey, error) {
 
 // MarshalPrivateKey converts a key object into its protobuf serialized form.
 func MarshalPrivateKey(k PrivKey) ([]byte, error) {
-	b := MarshalRsaPrivateKey(k.(*RsaPrivateKey))
-	pmes := new(pb.PrivateKey)
-	typ := pb.KeyType_RSA // for now only type.
-	pmes.Type = &typ
-	pmes.Data = b
-	return proto.Marshal(pmes)
+
+	switch k.(type) {
+	case *Ed25519PrivateKey:
+		return k.Bytes()
+	case *RsaPrivateKey:
+		return k.Bytes()
+	default:
+		return nil, ErrBadKeyType
+	}
 }
 
 // ConfigDecodeKey decodes from b64 (for config file), and unmarshals.
