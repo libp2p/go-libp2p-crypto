@@ -27,7 +27,7 @@
     },
     {
       "author": "multiformats",
-      "hash": "QmbZ6Cee2uHjG7hf19qLHppgKDRtaG4CVtMzdmK9VCVqLu",
+      "hash": "QmPtbDoz8i593CoReBAzgXdx5PTAN66xAofpendZb922kp",
       "name": "go-multihash",
       "version": "1.0.2"
     }
@@ -37,6 +37,6 @@
   "license": "MIT",
   "name": "go-libp2p-crypto",
   "releaseCmd": "git commit -a -m \"gx publish $VERSION\"",
-  "version": "1.4.0"
+  "version": "1.4.1"
 }
 
