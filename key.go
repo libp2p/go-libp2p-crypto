@@ -20,7 +20,6 @@ import (
 	"hash"
 
 	pb "github.com/libp2p/go-libp2p-crypto/pb"
-	mh "github.com/multiformats/go-multihash"
 
 	proto "github.com/gogo/protobuf/proto"
 )
@@ -37,9 +36,6 @@ const (
 type Key interface {
 	// Bytes returns a serialized, storeable representation of this key
 	Bytes() ([]byte, error)
-
-	// Hash returns the hash of this key
-	Hash() ([]byte, error)
 
 	// Equals checks whether two PubKeys are the same
 	Equals(Key) bool
@@ -303,15 +299,4 @@ func KeyEqual(k1, k2 Key) bool {
 	b1, err1 := k1.Bytes()
 	b2, err2 := k2.Bytes()
 	return bytes.Equal(b1, b2) && err1 == err2
-}
-
-// KeyHash hashes a key.
-func KeyHash(k Key) ([]byte, error) {
-	kb, err := k.Bytes()
-	if err != nil {
-		return nil, err
-	}
-
-	h, _ := mh.Sum(kb, mh.SHA2_256, -1)
-	return []byte(h), nil
 }

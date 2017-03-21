@@ -119,7 +119,3 @@ func (pk testkey) Bytes() ([]byte, error) {
 func (pk testkey) Equals(k Key) bool {
 	return KeyEqual(pk, k)
 }
-
-func (pk testkey) Hash() ([]byte, error) {
-	return KeyHash(pk)
-}

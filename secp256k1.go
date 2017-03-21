@@ -49,10 +49,6 @@ func (k *Secp256k1PrivateKey) Bytes() ([]byte, error) {
 	return proto.Marshal(pbmes)
 }
 
-func (k *Secp256k1PrivateKey) Hash() ([]byte, error) {
-	return KeyHash(k)
-}
-
 func (k *Secp256k1PrivateKey) Equals(o Key) bool {
 	sk, ok := o.(*Secp256k1PrivateKey)
 	if !ok {
@@ -82,10 +78,6 @@ func (k *Secp256k1PublicKey) Bytes() ([]byte, error) {
 	pbmes.Type = &typ
 	pbmes.Data = (*btcec.PublicKey)(k).SerializeCompressed()
 	return proto.Marshal(pbmes)
-}
-
-func (k *Secp256k1PublicKey) Hash() ([]byte, error) {
-	return KeyHash(k)
 }
 
 func (k *Secp256k1PublicKey) Equals(o Key) bool {
