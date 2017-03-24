@@ -61,10 +61,6 @@ func (k *Ed25519PrivateKey) GetPublic() PubKey {
 	return &Ed25519PublicKey{k.pk}
 }
 
-func (k *Ed25519PrivateKey) Hash() ([]byte, error) {
-	return KeyHash(k)
-}
-
 func (k *Ed25519PrivateKey) Sign(msg []byte) ([]byte, error) {
 	out := ed25519.Sign(k.sk, msg)
 	return (*out)[:], nil
@@ -91,10 +87,6 @@ func (k *Ed25519PublicKey) Equals(o Key) bool {
 	}
 
 	return bytes.Equal((*k.k)[:], (*edk.k)[:])
-}
-
-func (k *Ed25519PublicKey) Hash() ([]byte, error) {
-	return KeyHash(k)
 }
 
 func (k *Ed25519PublicKey) Verify(data []byte, sig []byte) (bool, error) {

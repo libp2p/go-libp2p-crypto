@@ -52,10 +52,6 @@ func (pk *RsaPublicKey) Equals(k Key) bool {
 	return KeyEqual(pk, k)
 }
 
-func (pk *RsaPublicKey) Hash() ([]byte, error) {
-	return KeyHash(pk)
-}
-
 func (sk *RsaPrivateKey) Sign(message []byte) ([]byte, error) {
 	hashed := sha256.Sum256(message)
 	return rsa.SignPKCS1v15(rand.Reader, sk.sk, crypto.SHA256, hashed[:])
@@ -84,10 +80,6 @@ func (sk *RsaPrivateKey) Bytes() ([]byte, error) {
 // Equals checks whether this key is equal to another
 func (sk *RsaPrivateKey) Equals(k Key) bool {
 	return KeyEqual(sk, k)
-}
-
-func (sk *RsaPrivateKey) Hash() ([]byte, error) {
-	return KeyHash(sk)
 }
 
 func UnmarshalRsaPrivateKey(b []byte) (*RsaPrivateKey, error) {
