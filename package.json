@@ -31,6 +31,6 @@
   "license": "MIT",
   "name": "go-libp2p-crypto",
   "releaseCmd": "git commit -a -m \"gx publish $VERSION\"",
-  "version": "1.4.1"
+  "version": "1.4.2"
 }
 
