@@ -10,7 +10,7 @@ go:
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]];
-    then make coverage;
+    then make coverage && go vet ./...;
     else make test;
     fi
 
