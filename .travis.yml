@@ -9,6 +9,12 @@ go:
   - 1.9.2
 
 script:
-  - make test
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]];
+    then make coverage;
+    else make test;
+    fi
+
+after_success:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then bash <(curl -s https://codecov.io/bash); fi
 
 env: TEST_NO_FUSE=1 TEST_VERBOSE=1
