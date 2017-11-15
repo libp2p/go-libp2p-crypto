@@ -1,8 +1,12 @@
 language: go
 sudo: true
 
+os:
+  - linux
+  - osx
+
 go:
-  - 1.7
+  - 1.9.2
 
 script:
   - make test
