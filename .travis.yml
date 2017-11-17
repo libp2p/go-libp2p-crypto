@@ -2,13 +2,12 @@ language: go
 sudo: true
 
 go:
-  - 1.9.2
+  - 1.9.x
+
+before_install:
+  - make deps
 
 script:
-  - make coverage
-  - go vet ./...
+  - bash <(curl -s https://raw.githubusercontent.com/ipfs/ci-helpers/master/travis-ci/run-standard-tests.sh)
 
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
-env: TEST_NO_FUSE=1 TEST_VERBOSE=1
+env: GOTFLAGS="-race"
