@@ -4,7 +4,7 @@ sudo: true
 go:
   - 1.9.x
 
-before_install:
+install:
   - make deps
 
 script:
