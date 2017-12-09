@@ -43,8 +43,7 @@ func UnmarshalSecp256k1PublicKey(data []byte) (*Secp256k1PublicKey, error) {
 
 func (k *Secp256k1PrivateKey) Bytes() ([]byte, error) {
 	pbmes := new(pb.PrivateKey)
-	typ := pb.KeyType_Secp256k1
-	pbmes.Type = &typ
+	pbmes.Type = pb.KeyType_Secp256k1
 	pbmes.Data = (*btcec.PrivateKey)(k).Serialize()
 	return proto.Marshal(pbmes)
 }
@@ -74,8 +73,7 @@ func (k *Secp256k1PrivateKey) GetPublic() PubKey {
 
 func (k *Secp256k1PublicKey) Bytes() ([]byte, error) {
 	pbmes := new(pb.PublicKey)
-	typ := pb.KeyType_Secp256k1
-	pbmes.Type = &typ
+	pbmes.Type = pb.KeyType_Secp256k1
 	pbmes.Data = (*btcec.PublicKey)(k).SerializeCompressed()
 	return proto.Marshal(pbmes)
 }

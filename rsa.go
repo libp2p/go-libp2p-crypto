@@ -37,8 +37,7 @@ func (pk *RsaPublicKey) Bytes() ([]byte, error) {
 	}
 
 	pbmes := new(pb.PublicKey)
-	typ := pb.KeyType_RSA
-	pbmes.Type = &typ
+	pbmes.Type = pb.KeyType_RSA
 	pbmes.Data = b
 	return proto.Marshal(pbmes)
 }
@@ -71,8 +70,7 @@ func (sk *RsaPrivateKey) Decrypt(b []byte) ([]byte, error) {
 func (sk *RsaPrivateKey) Bytes() ([]byte, error) {
 	b := x509.MarshalPKCS1PrivateKey(sk.sk)
 	pbmes := new(pb.PrivateKey)
-	typ := pb.KeyType_RSA
-	pbmes.Type = &typ
+	pbmes.Type = pb.KeyType_RSA
 	pbmes.Data = b
 	return proto.Marshal(pbmes)
 }
