@@ -2,9 +2,19 @@ language: go
 sudo: true
 
 go:
-  - 1.7
+  - 1.9.x
+
+install:
+  - make deps
 
 script:
-  - make test
+  - bash <(curl -s https://raw.githubusercontent.com/ipfs/ci-helpers/master/travis-ci/run-standard-tests.sh)
 
-env: TEST_NO_FUSE=1 TEST_VERBOSE=1
+cache:
+  directories:
+    - $GOPATH/src/gx
+
+notifications:
+  email: false
+
+env: GOTFLAGS="-race"
