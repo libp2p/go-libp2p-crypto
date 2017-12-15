@@ -281,6 +281,8 @@ func MarshalPrivateKey(k PrivKey) ([]byte, error) {
 		return k.Bytes()
 	case *RsaPrivateKey:
 		return k.Bytes()
+	case *Secp256k1PrivateKey:
+		return k.Bytes()
 	default:
 		return nil, ErrBadKeyType
 	}
