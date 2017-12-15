@@ -59,6 +59,10 @@ func testKeyEncoding(t *testing.T, sk PrivKey) {
 		t.Fatal(err)
 	}
 
+	if !sk.Equals(sk2) {
+		t.Error("Unmarshaled private key didn't match original.\n")
+	}
+
 	skbm2, err := MarshalPrivateKey(sk2)
 	if err != nil {
 		t.Fatal(err)
@@ -74,9 +78,13 @@ func testKeyEncoding(t *testing.T, sk PrivKey) {
 		t.Fatal(err)
 	}
 
-	_, err = UnmarshalPublicKey(pkbm)
+	pk2, err := UnmarshalPublicKey(pkbm)
 	if err != nil {
 		t.Fatal(err)
+	}
+
+	if !pk.Equals(pk2) {
+		t.Error("Unmarshaled public key didn't match original.\n")
 	}
 
 	pkbm2, err := MarshalPublicKey(pk)
