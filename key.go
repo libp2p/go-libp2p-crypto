@@ -236,9 +236,7 @@ func UnmarshalPublicKey(data []byte) (PubKey, error) {
 	case pb.KeyType_RSA:
 		return UnmarshalRsaPublicKey(pmes.GetData())
 	case pb.KeyType_Ed25519:
-		var pubk [32]byte
-		copy(pubk[:], pmes.Data)
-		return &Ed25519PublicKey{&pubk}, nil
+		return UnmarshalEd25519PublicKey(pmes.GetData())
 	case pb.KeyType_Secp256k1:
 		return UnmarshalSecp256k1PublicKey(pmes.GetData())
 	default:
