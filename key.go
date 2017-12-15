@@ -32,6 +32,12 @@ const (
 	Secp256k1
 )
 
+var KeyTypes = []int{
+	RSA,
+	Ed25519,
+	Secp256k1,
+}
+
 // Key represents a crypto key that can be compared to another key
 type Key interface {
 	// Bytes returns a serialized, storeable representation of this key

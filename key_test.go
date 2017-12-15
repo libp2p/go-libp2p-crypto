@@ -9,11 +9,18 @@ import (
 	"testing"
 )
 
-func TestRsaKeys(t *testing.T) {
-	sk, pk, err := tu.RandTestKeyPair(512)
+func TestKeys(t *testing.T) {
+	for _, typ := range KeyTypes {
+		testKeyType(typ, t)
+	}
+}
+
+func testKeyType(typ int, t *testing.T) {
+	sk, pk, err := tu.RandTestKeyPair(typ, 512)
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	testKeySignature(t, sk)
 	testKeyEncoding(t, sk)
 	testKeyEquals(t, sk)
@@ -96,7 +103,7 @@ func testKeyEquals(t *testing.T, k Key) {
 		t.Fatal("Key not equal to key with same bytes.")
 	}
 
-	sk, pk, err := tu.RandTestKeyPair(512)
+	sk, pk, err := tu.RandTestKeyPair(RSA, 512)
 	if err != nil {
 		t.Fatal(err)
 	}
