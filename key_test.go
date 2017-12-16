@@ -9,11 +9,18 @@ import (
 	"testing"
 )
 
-func TestRsaKeys(t *testing.T) {
-	sk, pk, err := tu.RandTestKeyPair(512)
+func TestKeys(t *testing.T) {
+	for _, typ := range KeyTypes {
+		testKeyType(typ, t)
+	}
+}
+
+func testKeyType(typ int, t *testing.T) {
+	sk, pk, err := tu.RandTestKeyPair(typ, 512)
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	testKeySignature(t, sk)
 	testKeyEncoding(t, sk)
 	testKeyEquals(t, sk)
@@ -52,6 +59,10 @@ func testKeyEncoding(t *testing.T, sk PrivKey) {
 		t.Fatal(err)
 	}
 
+	if !sk.Equals(sk2) {
+		t.Error("Unmarshaled private key didn't match original.\n")
+	}
+
 	skbm2, err := MarshalPrivateKey(sk2)
 	if err != nil {
 		t.Fatal(err)
@@ -67,9 +78,13 @@ func testKeyEncoding(t *testing.T, sk PrivKey) {
 		t.Fatal(err)
 	}
 
-	_, err = UnmarshalPublicKey(pkbm)
+	pk2, err := UnmarshalPublicKey(pkbm)
 	if err != nil {
 		t.Fatal(err)
+	}
+
+	if !pk.Equals(pk2) {
+		t.Error("Unmarshaled public key didn't match original.\n")
 	}
 
 	pkbm2, err := MarshalPublicKey(pk)
@@ -96,7 +111,7 @@ func testKeyEquals(t *testing.T, k Key) {
 		t.Fatal("Key not equal to key with same bytes.")
 	}
 
-	sk, pk, err := tu.RandTestKeyPair(512)
+	sk, pk, err := tu.RandTestKeyPair(RSA, 512)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -32,6 +32,12 @@ const (
 	Secp256k1
 )
 
+var KeyTypes = []int{
+	RSA,
+	Ed25519,
+	Secp256k1,
+}
+
 // Key represents a crypto key that can be compared to another key
 type Key interface {
 	// Bytes returns a serialized, storeable representation of this key
@@ -230,9 +236,7 @@ func UnmarshalPublicKey(data []byte) (PubKey, error) {
 	case pb.KeyType_RSA:
 		return UnmarshalRsaPublicKey(pmes.GetData())
 	case pb.KeyType_Ed25519:
-		var pubk [32]byte
-		copy(pubk[:], pmes.Data)
-		return &Ed25519PublicKey{&pubk}, nil
+		return UnmarshalEd25519PublicKey(pmes.GetData())
 	case pb.KeyType_Secp256k1:
 		return UnmarshalSecp256k1PublicKey(pmes.GetData())
 	default:
@@ -274,6 +278,8 @@ func MarshalPrivateKey(k PrivKey) ([]byte, error) {
 	case *Ed25519PrivateKey:
 		return k.Bytes()
 	case *RsaPrivateKey:
+		return k.Bytes()
+	case *Secp256k1PrivateKey:
 		return k.Bytes()
 	default:
 		return nil, ErrBadKeyType
