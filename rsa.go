@@ -82,7 +82,7 @@ func (sk *RsaPrivateKey) Equals(k Key) bool {
 	return KeyEqual(sk, k)
 }
 
-func UnmarshalRsaPrivateKey(b []byte) (*RsaPrivateKey, error) {
+func UnmarshalRsaPrivateKey(b []byte) (PrivKey, error) {
 	sk, err := x509.ParsePKCS1PrivateKey(b)
 	if err != nil {
 		return nil, err
@@ -94,7 +94,7 @@ func MarshalRsaPrivateKey(k *RsaPrivateKey) []byte {
 	return x509.MarshalPKCS1PrivateKey(k.sk)
 }
 
-func UnmarshalRsaPublicKey(b []byte) (*RsaPublicKey, error) {
+func UnmarshalRsaPublicKey(b []byte) (PubKey, error) {
 	pub, err := x509.ParsePKIXPublicKey(b)
 	if err != nil {
 		return nil, err
