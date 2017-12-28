@@ -21,13 +21,13 @@ import (
 
 	pb "github.com/libp2p/go-libp2p-crypto/pb"
 
-	proto "github.com/gogo/protobuf/proto"
+	"github.com/gogo/protobuf/proto"
 )
 
 var ErrBadKeyType = errors.New("invalid or unsupported key type")
 
 const (
-	RSA = iota
+	RSA       = iota
 	Ed25519
 	Secp256k1
 )
@@ -228,11 +228,11 @@ func KeyStretcher(cipherType string, hashType string, secret []byte) (StretchedK
 	var k2 StretchedKeys
 
 	k1.IV = r1[0:ivSize]
-	k1.CipherKey = r1[ivSize : ivSize+cipherKeySize]
+	k1.CipherKey = r1[ivSize: ivSize+cipherKeySize]
 	k1.MacKey = r1[ivSize+cipherKeySize:]
 
 	k2.IV = r2[0:ivSize]
-	k2.CipherKey = r2[ivSize : ivSize+cipherKeySize]
+	k2.CipherKey = r2[ivSize: ivSize+cipherKeySize]
 	k2.MacKey = r2[ivSize+cipherKeySize:]
 
 	return k1, k2
@@ -247,10 +247,12 @@ func UnmarshalPublicKey(data []byte) (PubKey, error) {
 		return nil, err
 	}
 
-	if um, ok := PubKeyUnmarshallers[pmes.GetType()]; ok {
-		return um(pmes.GetData())
+	um, ok := PubKeyUnmarshallers[pmes.GetType()]
+	if !ok {
+		return nil, ErrBadKeyType
 	}
-	return nil, ErrBadKeyType
+
+	return um(pmes.GetData())
 }
 
 // MarshalPublicKey converts a public key object into a protobuf serialized
@@ -268,10 +270,12 @@ func UnmarshalPrivateKey(data []byte) (PrivKey, error) {
 		return nil, err
 	}
 
-	if um, ok := PrivKeyUnmarshallers[pmes.GetType()]; ok {
-		return um(pmes.GetData())
+	um, ok := PrivKeyUnmarshallers[pmes.GetType()]
+	if !ok {
+		return nil, ErrBadKeyType
 	}
-	return nil, ErrBadKeyType
+
+	return um(pmes.GetData())
 }
 
 // MarshalPrivateKey converts a key object into its protobuf serialized form.
