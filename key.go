@@ -27,7 +27,7 @@ import (
 var ErrBadKeyType = errors.New("invalid or unsupported key type")
 
 const (
-	RSA       = iota
+	RSA = iota
 	Ed25519
 	Secp256k1
 )
@@ -228,11 +228,11 @@ func KeyStretcher(cipherType string, hashType string, secret []byte) (StretchedK
 	var k2 StretchedKeys
 
 	k1.IV = r1[0:ivSize]
-	k1.CipherKey = r1[ivSize: ivSize+cipherKeySize]
+	k1.CipherKey = r1[ivSize : ivSize+cipherKeySize]
 	k1.MacKey = r1[ivSize+cipherKeySize:]
 
 	k2.IV = r2[0:ivSize]
-	k2.CipherKey = r2[ivSize: ivSize+cipherKeySize]
+	k2.CipherKey = r2[ivSize : ivSize+cipherKeySize]
 	k2.MacKey = r2[ivSize+cipherKeySize:]
 
 	return k1, k2
