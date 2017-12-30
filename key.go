@@ -21,7 +21,7 @@ import (
 
 	pb "github.com/libp2p/go-libp2p-crypto/pb"
 
-	proto "github.com/gogo/protobuf/proto"
+	"github.com/gogo/protobuf/proto"
 )
 
 var ErrBadKeyType = errors.New("invalid or unsupported key type")
@@ -36,6 +36,21 @@ var KeyTypes = []int{
 	RSA,
 	Ed25519,
 	Secp256k1,
+}
+
+type PubKeyUnmarshaller = func(data []byte) (PubKey, error)
+type PrivKeyUnmarshaller = func(data []byte) (PrivKey, error)
+
+var PubKeyUnmarshallers = map[pb.KeyType]PubKeyUnmarshaller{
+	pb.KeyType_RSA:       UnmarshalRsaPublicKey,
+	pb.KeyType_Ed25519:   UnmarshalEd25519PublicKey,
+	pb.KeyType_Secp256k1: UnmarshalSecp256k1PublicKey,
+}
+
+var PrivKeyUnmarshallers = map[pb.KeyType]PrivKeyUnmarshaller{
+	pb.KeyType_RSA:       UnmarshalRsaPrivateKey,
+	pb.KeyType_Ed25519:   UnmarshalEd25519PrivateKey,
+	pb.KeyType_Secp256k1: UnmarshalSecp256k1PrivateKey,
 }
 
 // Key represents a crypto key that can be compared to another key
@@ -232,16 +247,12 @@ func UnmarshalPublicKey(data []byte) (PubKey, error) {
 		return nil, err
 	}
 
-	switch pmes.GetType() {
-	case pb.KeyType_RSA:
-		return UnmarshalRsaPublicKey(pmes.GetData())
-	case pb.KeyType_Ed25519:
-		return UnmarshalEd25519PublicKey(pmes.GetData())
-	case pb.KeyType_Secp256k1:
-		return UnmarshalSecp256k1PublicKey(pmes.GetData())
-	default:
+	um, ok := PubKeyUnmarshallers[pmes.GetType()]
+	if !ok {
 		return nil, ErrBadKeyType
 	}
+
+	return um(pmes.GetData())
 }
 
 // MarshalPublicKey converts a public key object into a protobuf serialized
@@ -259,16 +270,12 @@ func UnmarshalPrivateKey(data []byte) (PrivKey, error) {
 		return nil, err
 	}
 
-	switch pmes.GetType() {
-	case pb.KeyType_RSA:
-		return UnmarshalRsaPrivateKey(pmes.GetData())
-	case pb.KeyType_Ed25519:
-		return UnmarshalEd25519PrivateKey(pmes.GetData())
-	case pb.KeyType_Secp256k1:
-		return UnmarshalSecp256k1PrivateKey(pmes.GetData())
-	default:
+	um, ok := PrivKeyUnmarshallers[pmes.GetType()]
+	if !ok {
 		return nil, ErrBadKeyType
 	}
+
+	return um(pmes.GetData())
 }
 
 // MarshalPrivateKey converts a key object into its protobuf serialized form.

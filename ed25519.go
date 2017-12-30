@@ -104,7 +104,7 @@ func (k *Ed25519PublicKey) ToCurve25519() (*[32]byte, error) {
 	return &pk, nil
 }
 
-func UnmarshalEd25519PublicKey(data []byte) (*Ed25519PublicKey, error) {
+func UnmarshalEd25519PublicKey(data []byte) (PubKey, error) {
 	if len(data) != 32 {
 		return nil, fmt.Errorf("expect ed25519 public key data size to be 32")
 	}
@@ -117,7 +117,7 @@ func UnmarshalEd25519PublicKey(data []byte) (*Ed25519PublicKey, error) {
 	}, nil
 }
 
-func UnmarshalEd25519PrivateKey(data []byte) (*Ed25519PrivateKey, error) {
+func UnmarshalEd25519PrivateKey(data []byte) (PrivKey, error) {
 	if len(data) != 96 {
 		return nil, fmt.Errorf("expected ed25519 data size to be 96")
 	}
