@@ -1,4 +1,4 @@
-// package crypto implements various cryptographic utilities used by ipfs.
+// Package crypto implements various cryptographic utilities used by ipfs.
 // This includes a Public and Private key interface and an RSA key implementation
 // that satisfies it.
 package crypto
@@ -38,8 +38,11 @@ var KeyTypes = []int{
 	Secp256k1,
 }
 
-type PubKeyUnmarshaller = func(data []byte) (PubKey, error)
-type PrivKeyUnmarshaller = func(data []byte) (PrivKey, error)
+// PubKeyUnmarshaller is a func that creates a PubKey from a given slice of bytes
+type PubKeyUnmarshaller func(data []byte) (PubKey, error)
+
+// PrivKeyUnmarshaller is a func that creates a PrivKey from a given slice of bytes
+type PrivKeyUnmarshaller func(data []byte) (PrivKey, error)
 
 var PubKeyUnmarshallers = map[pb.KeyType]PubKeyUnmarshaller{
 	pb.KeyType_RSA:       UnmarshalRsaPublicKey,
