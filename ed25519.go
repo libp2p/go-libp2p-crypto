@@ -38,8 +38,7 @@ func GenerateEd25519Key(src io.Reader) (PrivKey, PubKey, error) {
 
 func (k *Ed25519PrivateKey) Bytes() ([]byte, error) {
 	pbmes := new(pb.PrivateKey)
-	typ := pb.KeyType_Ed25519
-	pbmes.Type = &typ
+	pbmes.Type = pb.KeyType_Ed25519
 
 	buf := make([]byte, 96)
 	copy(buf, k.sk[:])
@@ -74,8 +73,7 @@ func (k *Ed25519PrivateKey) ToCurve25519() *[32]byte {
 
 func (k *Ed25519PublicKey) Bytes() ([]byte, error) {
 	pbmes := new(pb.PublicKey)
-	typ := pb.KeyType_Ed25519
-	pbmes.Type = &typ
+	pbmes.Type = pb.KeyType_Ed25519
 	pbmes.Data = (*k.k)[:]
 	return proto.Marshal(pbmes)
 }
