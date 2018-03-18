@@ -15,13 +15,13 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/sha1"
-	"crypto/sha256"
 	"crypto/sha512"
 	"hash"
 
 	pb "github.com/libp2p/go-libp2p-crypto/pb"
 
 	"github.com/gogo/protobuf/proto"
+	sha256 "github.com/minio/sha256-simd"
 )
 
 var ErrBadKeyType = errors.New("invalid or unsupported key type")
@@ -99,6 +99,7 @@ func GenerateKeyPairWithReader(typ, bits int, src io.Reader) (PrivKey, PubKey, e
 		if err != nil {
 			return nil, nil, err
 		}
+		priv.Precompute()
 		pk := &priv.PublicKey
 		return &RsaPrivateKey{sk: priv}, &RsaPublicKey{pk}, nil
 	case Ed25519:
