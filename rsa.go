@@ -88,8 +88,6 @@ func UnmarshalRsaPrivateKey(b []byte) (PrivKey, error) {
 	if err != nil {
 		return nil, err
 	}
-	// Important for performance. Please *do not remove this*.
-	sk.Precompute()
 	return &RsaPrivateKey{sk: sk}, nil
 }
 

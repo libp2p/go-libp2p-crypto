@@ -99,7 +99,6 @@ func GenerateKeyPairWithReader(typ, bits int, src io.Reader) (PrivKey, PubKey, e
 		if err != nil {
 			return nil, nil, err
 		}
-		priv.Precompute()
 		pk := &priv.PublicKey
 		return &RsaPrivateKey{sk: priv}, &RsaPublicKey{pk}, nil
 	case Ed25519:
