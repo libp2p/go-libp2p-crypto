@@ -68,18 +68,17 @@ func TestSecp256k1CompactSignAndVerify(t *testing.T) {
 	}
 
 	mpub, isCompressed, err := RecoverCompact(sig, []byte("not the same!"))
-	// should be an error based on the RecoverCompact Docs
-	if err != nil {
-		t.Fatal("should error on sig data mismatch")
-	}
-
 	if !isCompressed {
 		t.Fatal("signature should be compressed")
 	}
 
-	// But instead we get back different pub keys, strange..
-	if !pub.Equals(mpub) {
-		t.Fatal("recovered public key doesn't match")
+	if pub.Equals(mpub) {
+		t.Fatal("these keys should no match")
+	}
+
+	// we should get an error here since the data changed
+	if err == nil {
+		t.Fatal("should error on sig data mismatch")
 	}
 
 }
