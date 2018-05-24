@@ -41,6 +41,12 @@ func UnmarshalSecp256k1PublicKey(data []byte) (PubKey, error) {
 	return (*Secp256k1PublicKey)(k), nil
 }
 
+func RecoverCompact(sig, data []byte) (PubKey, bool, error) {
+	hash := sha256.Sum256(data)
+	k, isCompressed, err := btcec.RecoverCompact(btcec.S256(), sig, hash[:])
+	return (*Secp256k1PublicKey)(k), isCompressed, err
+}
+
 func (k *Secp256k1PrivateKey) Bytes() ([]byte, error) {
 	pbmes := new(pb.PrivateKey)
 	typ := pb.KeyType_Secp256k1
@@ -66,6 +72,11 @@ func (k *Secp256k1PrivateKey) Sign(data []byte) ([]byte, error) {
 	}
 
 	return sig.Serialize(), nil
+}
+
+func (k *Secp256k1PrivateKey) SignCompact(data []byte, isCompressedKey bool) ([]byte, error) {
+	hash := sha256.Sum256(data)
+	return btcec.SignCompact(btcec.S256(), (*btcec.PrivateKey)(k), hash[:], isCompressedKey)
 }
 
 func (k *Secp256k1PrivateKey) GetPublic() PubKey {

@@ -39,6 +39,51 @@ func TestSecp256k1BasicSignAndVerify(t *testing.T) {
 	}
 }
 
+// TODO this test is wrong intentionally to look at something strange WIP!!
+func TestSecp256k1CompactSignAndVerify(t *testing.T) {
+	priv, pub, err := GenerateSecp256k1Key(rand.Reader)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	data := []byte("hello! and welcome to some awesome crypto primitives")
+
+	// uncompressed key
+	sig, err := priv.(*Secp256k1PrivateKey).SignCompact(data, true)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rpub, isCompressed, err := RecoverCompact(sig, data)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !isCompressed {
+		t.Fatal("signature should be compressed")
+	}
+
+	if !pub.Equals(rpub) {
+		t.Fatal("recovered public key doesn't match")
+	}
+
+	mpub, isCompressed, err := RecoverCompact(sig, []byte("not the same!"))
+	// should be an error based on the RecoverCompact Docs
+	if err != nil {
+		t.Fatal("should error on sig data mismatch")
+	}
+
+	if !isCompressed {
+		t.Fatal("signature should be compressed")
+	}
+
+	// But instead we get back different pub keys, strange..
+	if !pub.Equals(mpub) {
+		t.Fatal("recovered public key doesn't match")
+	}
+
+}
+
 func TestSecp256k1SignZero(t *testing.T) {
 	priv, pub, err := GenerateSecp256k1Key(rand.Reader)
 	if err != nil {
