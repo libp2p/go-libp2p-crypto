@@ -65,7 +65,10 @@ type Key interface {
 	// Equals checks whether two PubKeys are the same
 	Equals(Key) bool
 
-	// Raw returns the raw bytes of the key.
+	// Raw returns the raw bytes of the key (not wrapped in the
+	// libp2p-crypto protobuf).
+	//
+	// This function is the inverse of {Priv,Pub}KeyUnmarshaler.
 	Raw() ([]byte, error)
 
 	// Type returns the protobof key type.
@@ -275,7 +278,7 @@ func MarshalPublicKey(k PubKey) ([]byte, error) {
 		return nil, err
 	}
 	pbmes.Data = data
-	
+
 	return proto.Marshal(pbmes)
 }
 
@@ -304,7 +307,7 @@ func MarshalPrivateKey(k PrivKey) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	
+
 	pbmes.Data = data
 	return proto.Marshal(pbmes)
 }
