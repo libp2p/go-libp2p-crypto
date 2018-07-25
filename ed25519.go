@@ -35,12 +35,12 @@ func GenerateEd25519Key(src io.Reader) (PrivKey, PubKey, error) {
 		nil
 }
 
-func (sk *Ed25519PrivateKey) Type() pb.KeyType {
+func (k *Ed25519PrivateKey) Type() pb.KeyType {
 	return pb.KeyType_Ed25519
 }
 
-func (sk *Ed25519PrivateKey) Bytes() ([]byte, error) {
-	return MarshalPrivateKey(sk)
+func (k *Ed25519PrivateKey) Bytes() ([]byte, error) {
+	return MarshalPrivateKey(k)
 }
 
 func (k *Ed25519PrivateKey) Raw() ([]byte, error) {
@@ -75,12 +75,12 @@ func (k *Ed25519PrivateKey) ToCurve25519() *[32]byte {
 	return &sk
 }
 
-func (sk *Ed25519PublicKey) Type() pb.KeyType {
+func (k *Ed25519PublicKey) Type() pb.KeyType {
 	return pb.KeyType_Ed25519
 }
 
-func (sk *Ed25519PublicKey) Bytes() ([]byte, error) {
-	return MarshalPublicKey(sk)
+func (k *Ed25519PublicKey) Bytes() ([]byte, error) {
+	return MarshalPublicKey(k)
 }
 
 func (k *Ed25519PublicKey) Raw() ([]byte, error) {
