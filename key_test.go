@@ -2,6 +2,7 @@ package crypto_test
 
 import (
 	. "github.com/libp2p/go-libp2p-crypto"
+	pb "github.com/libp2p/go-libp2p-crypto/pb"
 	tu "github.com/libp2p/go-libp2p-crypto/test"
 
 	"bytes"
@@ -128,6 +129,14 @@ func testKeyEquals(t *testing.T, k Key) {
 type testkey []byte
 
 func (pk testkey) Bytes() ([]byte, error) {
+	return pk, nil
+}
+
+func (pk testkey) Type() pb.KeyType {
+	return pb.KeyType_RSA
+}
+
+func (pk testkey) Raw() ([]byte, error) {
 	return pk, nil
 }
 
