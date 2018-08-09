@@ -272,7 +272,7 @@ func UnmarshalPublicKey(data []byte) (PubKey, error) {
 // public key
 func MarshalPublicKey(k PubKey) ([]byte, error) {
 	pbmes := new(pb.PublicKey)
-	pbmes.Type = k.Type().Enum()
+	pbmes.Type = k.Type()
 	data, err := k.Raw()
 	if err != nil {
 		return nil, err
@@ -302,7 +302,7 @@ func UnmarshalPrivateKey(data []byte) (PrivKey, error) {
 // MarshalPrivateKey converts a key object into its protobuf serialized form.
 func MarshalPrivateKey(k PrivKey) ([]byte, error) {
 	pbmes := new(pb.PrivateKey)
-	pbmes.Type = k.Type().Enum()
+	pbmes.Type = k.Type()
 	data, err := k.Raw()
 	if err != nil {
 		return nil, err
