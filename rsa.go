@@ -1,6 +1,7 @@
 package crypto
 
 import (
+	"bytes"
 	"crypto"
 	"crypto/rand"
 	"crypto/rsa"
@@ -8,7 +9,6 @@ import (
 	"errors"
 
 	pb "github.com/libp2p/go-libp2p-crypto/pb"
-
 	sha256 "github.com/minio/sha256-simd"
 )
 
@@ -43,7 +43,17 @@ func (pk *RsaPublicKey) Raw() ([]byte, error) {
 }
 
 func (pk *RsaPublicKey) Encrypt(b []byte) ([]byte, error) {
-	return rsa.EncryptPKCS1v15(rand.Reader, pk.k, b)
+	partLen := pk.k.N.BitLen()/8 - 11
+	chunks := split(b, partLen)
+	buffer := bytes.NewBuffer(nil)
+	for _, chunk := range chunks {
+		bytes, err := rsa.EncryptPKCS1v15(rand.Reader, pk.k, chunk)
+		if err != nil {
+			return nil, err
+		}
+		buffer.Write(bytes)
+	}
+	return buffer.Bytes(), nil
 }
 
 // Equals checks whether this key is equal to another
@@ -64,6 +74,16 @@ func (sk *RsaPrivateKey) GetPublic() PubKey {
 }
 
 func (sk *RsaPrivateKey) Decrypt(b []byte) ([]byte, error) {
+	partLen := sk.pk.N.BitLen() / 8
+	chunks := split(b, partLen)
+	buffer := bytes.NewBuffer(nil)
+	for _, chunk := range chunks {
+		decrypted, err := rsa.DecryptPKCS1v15(rand.Reader, sk.sk, chunk)
+		if err != nil {
+			return nil, err
+		}
+		buffer.Write(decrypted)
+	}
 	return rsa.DecryptPKCS1v15(rand.Reader, sk.sk, b)
 }
 
@@ -111,4 +131,17 @@ func UnmarshalRsaPublicKey(b []byte) (PubKey, error) {
 
 func MarshalRsaPublicKey(k *RsaPublicKey) ([]byte, error) {
 	return x509.MarshalPKIXPublicKey(k.k)
+}
+
+func split(buf []byte, lim int) [][]byte {
+	var chunk []byte
+	chunks := make([][]byte, 0, len(buf)/lim+1)
+	for len(buf) >= lim {
+		chunk, buf = buf[:lim], buf[lim:]
+		chunks = append(chunks, chunk)
+	}
+	if len(buf) > 0 {
+		chunks = append(chunks, buf[:])
+	}
+	return chunks
 }
