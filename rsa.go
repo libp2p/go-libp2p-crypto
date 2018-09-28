@@ -1,6 +1,7 @@
 package crypto
 
 import (
+	"bytes"
 	"crypto"
 	"crypto/rand"
 	"crypto/rsa"
@@ -8,9 +9,7 @@ import (
 	"errors"
 
 	pb "github.com/libp2p/go-libp2p-crypto/pb"
-
-	"bytes"
-	"github.com/minio/sha256-simd"
+	sha256 "github.com/minio/sha256-simd"
 )
 
 type RsaPrivateKey struct {
@@ -45,8 +44,8 @@ func (pk *RsaPublicKey) Raw() ([]byte, error) {
 
 func (pk *RsaPublicKey) Encrypt(b []byte) ([]byte, error) {
 	partLen := pk.k.N.BitLen()/8 - 11
-	chunks := split([]byte(b), partLen)
-	buffer := bytes.NewBufferString("")
+	chunks := split(b, partLen)
+	buffer := bytes.NewBuffer(nil)
 	for _, chunk := range chunks {
 		bytes, err := rsa.EncryptPKCS1v15(rand.Reader, pk.k, chunk)
 		if err != nil {
@@ -76,8 +75,8 @@ func (sk *RsaPrivateKey) GetPublic() PubKey {
 
 func (sk *RsaPrivateKey) Decrypt(b []byte) ([]byte, error) {
 	partLen := sk.pk.N.BitLen() / 8
-	chunks := split([]byte(b), partLen)
-	buffer := bytes.NewBufferString("")
+	chunks := split(b, partLen)
+	buffer := bytes.NewBuffer(nil)
 	for _, chunk := range chunks {
 		decrypted, err := rsa.DecryptPKCS1v15(rand.Reader, sk.sk, chunk)
 		if err != nil {
