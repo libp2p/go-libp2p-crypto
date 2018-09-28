@@ -13,6 +13,11 @@ import (
 	sha256 "github.com/minio/sha256-simd"
 )
 
+// ErrRsaKeyTooSmall is returned when trying to generate or parse an RSA key
+// that's smaller than 512 bits. Keys need to be larger enough to sign a 256bit
+// hash so this is a reasonable absolute minimum.
+var ErrRsaKeyTooSmall = errors.New("rsa keys must be >= 512 bits to be useful")
+
 // RsaPrivateKey is an rsa private key
 type RsaPrivateKey struct {
 	sk *rsa.PrivateKey
@@ -26,6 +31,9 @@ type RsaPublicKey struct {
 
 // GenerateRSAKeyPair generates a new rsa private and public key
 func GenerateRSAKeyPair(bits int, src io.Reader) (PrivKey, PubKey, error) {
+	if bits < 512 {
+		return nil, nil, ErrRsaKeyTooSmall
+	}
 	priv, err := rsa.GenerateKey(src, bits)
 	if err != nil {
 		return nil, nil, err
@@ -111,6 +119,9 @@ func UnmarshalRsaPrivateKey(b []byte) (PrivKey, error) {
 	if err != nil {
 		return nil, err
 	}
+	if sk.N.BitLen() < 512 {
+		return nil, ErrRsaKeyTooSmall
+	}
 	return &RsaPrivateKey{sk: sk}, nil
 }
 
@@ -128,6 +139,9 @@ func UnmarshalRsaPublicKey(b []byte) (PubKey, error) {
 	pk, ok := pub.(*rsa.PublicKey)
 	if !ok {
 		return nil, errors.New("not actually an rsa public key")
+	}
+	if pk.N.BitLen() < 512 {
+		return nil, ErrRsaKeyTooSmall
 	}
 	return &RsaPublicKey{pk}, nil
 }

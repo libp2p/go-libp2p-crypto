@@ -39,6 +39,13 @@ func TestRSABasicSignAndVerify(t *testing.T) {
 	}
 }
 
+func TestRSASmallKey(t *testing.T) {
+	_, _, err := GenerateRSAKeyPair(384, rand.Reader)
+	if err != ErrRsaKeyTooSmall {
+		t.Fatal("should have refused to create small RSA key")
+	}
+}
+
 func TestRSASignZero(t *testing.T) {
 	priv, pub, err := GenerateRSAKeyPair(512, rand.Reader)
 	if err != nil {
