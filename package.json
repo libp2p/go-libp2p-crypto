@@ -8,12 +8,6 @@
   },
   "gxDependencies": [
     {
-      "author": "whyrusleeping",
-      "hash": "QmQ51pHe6u7CWodkUGDLqaCEMchkbMt7VEZnECF5mp6tVb",
-      "name": "ed25519",
-      "version": "0.0.0"
-    },
-    {
       "author": "btcsuite",
       "hash": "QmWq5PJgAQKDWQerAijYUVKW8mN5MDatK5j7VMp8rizKQd",
       "name": "btcec",
@@ -30,6 +24,12 @@
       "hash": "QmdxUuburamoF6zF9qjeQC4WYcWGbWuRmdLacMEsW8ioD8",
       "name": "gogo-protobuf",
       "version": "0.0.0"
+    },
+    {
+      "author": "golang",
+      "hash": "QmW7VUmSvhvSGbYbdsh7uRjhGmsYkc9fL8aJ5CorxxrU5N",
+      "name": "go-crypto",
+      "version": "0.2.1"
     }
   ],
   "gxVersion": "0.4.0",
