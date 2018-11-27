@@ -38,4 +38,3 @@ Small note: If editing the README, please conform to the [standard-readme](https
 ## License
 
 [MIT](LICENSE) © 2016 Jeromy Johnson
-
