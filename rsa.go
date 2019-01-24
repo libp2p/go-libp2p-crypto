@@ -8,7 +8,7 @@ import (
 	"errors"
 	"io"
 
-	pb "github.com/libp2p/go-libp2p-crypto/pb"
+	pb "github.com/libp2p/go-libp2p-crypto/v3/pb"
 
 	sha256 "github.com/minio/sha256-simd"
 )

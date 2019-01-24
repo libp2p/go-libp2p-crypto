@@ -5,9 +5,9 @@ import (
 	"crypto/rand"
 	"testing"
 
-	. "github.com/libp2p/go-libp2p-crypto"
-	pb "github.com/libp2p/go-libp2p-crypto/pb"
-	tu "github.com/libp2p/go-libp2p-crypto/test"
+	. "github.com/libp2p/go-libp2p-crypto/v3"
+	pb "github.com/libp2p/go-libp2p-crypto/v3/pb"
+	tu "github.com/libp2p/go-libp2p-crypto/v3/test"
 )
 
 func TestKeys(t *testing.T) {

@@ -4,7 +4,7 @@ import (
 	"crypto/rand"
 	"testing"
 
-	pb "github.com/libp2p/go-libp2p-crypto/pb"
+	pb "github.com/libp2p/go-libp2p-crypto/v3/pb"
 
 	"golang.org/x/crypto/ed25519"
 )

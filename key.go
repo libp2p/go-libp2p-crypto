@@ -16,7 +16,7 @@ import (
 	"hash"
 	"io"
 
-	pb "github.com/libp2p/go-libp2p-crypto/pb"
+	pb "github.com/libp2p/go-libp2p-crypto/v3/pb"
 
 	"github.com/gogo/protobuf/proto"
 	sha256 "github.com/minio/sha256-simd"

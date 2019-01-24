@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	pb "github.com/libp2p/go-libp2p-crypto/pb"
+	pb "github.com/libp2p/go-libp2p-crypto/v3/pb"
 
 	btcec "github.com/btcsuite/btcd/btcec"
 	sha256 "github.com/minio/sha256-simd"
