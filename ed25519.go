@@ -2,6 +2,7 @@ package crypto
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 
@@ -115,7 +116,7 @@ func (k *Ed25519PublicKey) Verify(data []byte, sig []byte) (bool, error) {
 // UnmarshalEd25519PublicKey returns a public key from input bytes.
 func UnmarshalEd25519PublicKey(data []byte) (PubKey, error) {
 	if len(data) != 32 {
-		return nil, fmt.Errorf("expect ed25519 public key data size to be 32")
+		return nil, errors.New("expect ed25519 public key data size to be 32")
 	}
 
 	return &Ed25519PublicKey{
@@ -129,8 +130,9 @@ func UnmarshalEd25519PrivateKey(data []byte) (PrivKey, error) {
 	case ed25519.PrivateKeySize + ed25519.PublicKeySize:
 		// Remove the redundant public key. See issue #36.
 		redundantPk := data[ed25519.PrivateKeySize:]
-		if !bytes.Equal(data[len(data)-ed25519.PublicKeySize:], redundantPk) {
-			return nil, fmt.Errorf("expected redundant ed25519 public key to be redundant")
+		pk := data[ed25519.PrivateKeySize-ed25519.PublicKeySize : ed25519.PrivateKeySize]
+		if !bytes.Equal(pk, redundantPk) {
+			return nil, errors.New("expected redundant ed25519 public key to be redundant")
 		}
 
 		// No point in storing the extra data.

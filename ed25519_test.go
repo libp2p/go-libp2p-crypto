@@ -149,3 +149,72 @@ func TestMarshalLoop(t *testing.T) {
 		}
 	})
 }
+
+func TestUnmarshalErrors(t *testing.T) {
+	t.Run("PublicKey", func(t *testing.T) {
+		t.Run("Invalid data length", func(t *testing.T) {
+			pbmes := &pb.PublicKey{
+				Type: pb.KeyType_Ed25519,
+				Data: []byte{42},
+			}
+
+			data, err := pbmes.Marshal()
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			_, err = UnmarshalPublicKey(data)
+			if err == nil {
+				t.Fatal("expected an error")
+			}
+		})
+	})
+
+	t.Run("PrivateKey", func(t *testing.T) {
+		t.Run("Redundant public key mismatch", func(t *testing.T) {
+			priv, _, err := GenerateEd25519Key(rand.Reader)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			pbmes := new(pb.PrivateKey)
+			pbmes.Type = priv.Type()
+			data, err := priv.Raw()
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			// Append the private key instead of the public key.
+			pbmes.Data = append(data, data[:ed25519.PublicKeySize]...)
+			b, err := pbmes.Marshal()
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			_, err = UnmarshalPrivateKey(b)
+			if err == nil {
+				t.Fatal("expected an error")
+			}
+			if err.Error() != "expected redundant ed25519 public key to be redundant" {
+				t.Fatalf("invalid error received: %s", err.Error())
+			}
+		})
+
+		t.Run("Invalid data length", func(t *testing.T) {
+			pbmes := &pb.PrivateKey{
+				Type: pb.KeyType_Ed25519,
+				Data: []byte{42},
+			}
+
+			data, err := pbmes.Marshal()
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			_, err = UnmarshalPrivateKey(data)
+			if err == nil {
+				t.Fatal("expected an error")
+			}
+		})
+	})
+}
