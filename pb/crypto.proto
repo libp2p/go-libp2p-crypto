@@ -1,4 +1,4 @@
-syntax = "proto2";
+syntax = "proto3";
 
 package crypto.pb;
 
@@ -10,11 +10,11 @@ enum KeyType {
 }
 
 message PublicKey {
-	required KeyType Type = 1;
-	required bytes Data = 2;
+	KeyType Type = 1;
+	bytes Data = 2;
 }
 
 message PrivateKey {
-	required KeyType Type = 1;
-	required bytes Data = 2;
+	KeyType Type = 1;
+	bytes Data = 2;
 }
