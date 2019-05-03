@@ -65,11 +65,6 @@ func (pk *RsaPublicKey) Raw() ([]byte, error) {
 	return x509.MarshalPKIXPublicKey(pk.k)
 }
 
-// Encrypt returns encrypted bytes from the inpu data
-func (pk *RsaPublicKey) Encrypt(b []byte) ([]byte, error) {
-	return rsa.EncryptPKCS1v15(rand.Reader, pk.k, b)
-}
-
 // Equals checks whether this key is equal to another
 func (pk *RsaPublicKey) Equals(k Key) bool {
 	return KeyEqual(pk, k)
@@ -87,11 +82,6 @@ func (sk *RsaPrivateKey) GetPublic() PubKey {
 		sk.pk = &sk.sk.PublicKey
 	}
 	return &RsaPublicKey{sk.pk}
-}
-
-// Decrypt returns decrypted bytes of the input encrypted bytes
-func (sk *RsaPrivateKey) Decrypt(b []byte) ([]byte, error) {
-	return rsa.DecryptPKCS1v15(rand.Reader, sk.sk, b)
 }
 
 func (sk *RsaPrivateKey) Type() pb.KeyType {
@@ -125,11 +115,6 @@ func UnmarshalRsaPrivateKey(b []byte) (PrivKey, error) {
 	return &RsaPrivateKey{sk: sk}, nil
 }
 
-// MarshalRsaPrivateKey returns the x509 bytes of the private key
-func MarshalRsaPrivateKey(k *RsaPrivateKey) []byte {
-	return x509.MarshalPKCS1PrivateKey(k.sk)
-}
-
 // UnmarshalRsaPublicKey returns a public key from the input x509 bytes
 func UnmarshalRsaPublicKey(b []byte) (PubKey, error) {
 	pub, err := x509.ParsePKIXPublicKey(b)
@@ -144,9 +129,4 @@ func UnmarshalRsaPublicKey(b []byte) (PubKey, error) {
 		return nil, ErrRsaKeyTooSmall
 	}
 	return &RsaPublicKey{pk}, nil
-}
-
-// MarshalRsaPublicKey returns the x509 bytes from the public key
-func MarshalRsaPublicKey(k *RsaPublicKey) ([]byte, error) {
-	return x509.MarshalPKIXPublicKey(k.k)
 }
