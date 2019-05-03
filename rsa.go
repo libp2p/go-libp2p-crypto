@@ -21,7 +21,6 @@ var ErrRsaKeyTooSmall = errors.New("rsa keys must be >= 512 bits to be useful")
 // RsaPrivateKey is an rsa private key
 type RsaPrivateKey struct {
 	sk *rsa.PrivateKey
-	pk *rsa.PublicKey
 }
 
 // RsaPublicKey is an rsa public key
@@ -78,10 +77,7 @@ func (sk *RsaPrivateKey) Sign(message []byte) ([]byte, error) {
 
 // GetPublic returns a public key
 func (sk *RsaPrivateKey) GetPublic() PubKey {
-	if sk.pk == nil {
-		sk.pk = &sk.sk.PublicKey
-	}
-	return &RsaPublicKey{sk.pk}
+	return &RsaPublicKey{&sk.sk.PublicKey}
 }
 
 func (sk *RsaPrivateKey) Type() pb.KeyType {
