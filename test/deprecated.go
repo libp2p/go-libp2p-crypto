@@ -1,8 +1,8 @@
 package testutil
 
 import (
-	tcrypto "github.com/libp2p/go-libp2p-core/crypto/test"
 	ci "github.com/libp2p/go-libp2p-crypto"
+	"github.com/libp2p/go-libp2p-testing/crypto"
 )
 
 func RandTestKeyPair(typ, bits int) (ci.PrivKey, ci.PubKey, error) {
