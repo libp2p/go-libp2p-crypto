@@ -25,17 +25,7 @@ func UnmarshalRsaPrivateKey(b []byte) (PrivKey, error) {
 	return core.UnmarshalRsaPrivateKey(b)
 }
 
-// Deprecated: use github.com/libp2p/go-libp2p-core/crypto.MarshalRsaPrivateKey instead.
-func MarshalRsaPrivateKey(k *RsaPrivateKey) []byte {
-	return core.MarshalRsaPrivateKey(k)
-}
-
 // Deprecated: use github.com/libp2p/go-libp2p-core/crypto.UnmarshalRsaPublicKey instead.
 func UnmarshalRsaPublicKey(b []byte) (PubKey, error) {
 	return core.UnmarshalRsaPublicKey(b)
-}
-
-// Deprecated: use github.com/libp2p/go-libp2p-core/crypto.MarshalRsaPublicKey instead.
-func MarshalRsaPublicKey(k *RsaPublicKey) ([]byte, error) {
-	return core.MarshalRsaPublicKey(k)
 }
